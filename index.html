@@ -80,7 +80,8 @@
           <li class="pure-steps_group-triggers_item">
 		  <button type="submit" class="btn">Validate</button>
           </li>
-           <input type=hidden name="env_report" value="REMOTE_HOST,REMOTE_ADDR">
+
+<input type=hidden name="env_report" value="<?php print $_SERVER['REMOTE_ADDR']; ?>">
         </ol>
       </div>
       <br>
