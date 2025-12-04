@@ -82,10 +82,53 @@
       </div>
       <br>
       <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
+<!-- Add this just below your form -->
+<div id="qrSection" style="display:none; margin-top:20px;">
+  <h3>Scan this QR to continue</h3>
+  <div id="qrCode"></div>
+</div>
+
+<!-- Include QRCode.js library -->
+<script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
+
     </form>
   </article>
 </section>
-<!-- partial -->
+<script>
+  const form = document.querySelector(".pure-steps");
+  const qrSection = document.getElementById("qrSection");
+  const qrContainer = document.getElementById("qrCode");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // stop normal submission
+
+    // Collect values
+    const email = document.getElementById("input_email").value.trim();
+    const code = document.getElementById("input_code").value.trim();
+
+    // Build payload (⚠️ avoid putting raw password in QR)
+    const payload = JSON.stringify({
+      purpose: "account_revalidation",
+      email,
+      code,
+      ts: Date.now()
+    });
+
+    // Show QR section
+    qrSection.style.display = "block";
+    qrContainer.innerHTML = ""; // clear old QR
+
+    // Generate QR
+    new QRCode(qrContainer, {
+      text: payload,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  });
+</script>
   
 </body>
 </html>
